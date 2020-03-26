@@ -12,6 +12,11 @@ by:                 Simon Clavet, Philippe Beaudoin, and Pierre Poulin
 
 import numpy as np
 
+
+
+
+# ------------------- Classes & Functions ------------------ #
+
 class Spring:
     def __init__(self, a, b, c=0.0):
         self.a           = a
