@@ -12,8 +12,14 @@ by:                 Simon Clavet, Philippe Beaudoin, and Pierre Poulin
 
 import numpy as np
 
+simulation = SPH()
+
+simulation.particles.append(
+        Particle( np.array([0.0, 0.0, 0.0]), np.array([0.0, 0.0, 0.0]))
+        )
 
 
+#simulation.run()
 
 # ------------------- Classes & Functions ------------------ #
 
@@ -33,7 +39,7 @@ class Particle:
     
     
 class SPH:
-    def __init__(self, end_time=100.0, delta_t=1.0):
+    def __init__(self, end_time=1.0, delta_t=1.0):
         self.gravity  = 9.81
         self.rest_rho = 10.0
         
@@ -53,6 +59,17 @@ class SPH:
         
         self.particles = []
         self.springs   = []
+        
+        
+    def run(self):
+        self.apply_gravity()
+        #self.apply_viscosity()
+        #self.advance_to_predicted_position()
+        #self.adjust_springs()
+        #self.apply_spring_displacements()
+        #self.double_density_relaxation()
+        #self.resolve_collisions()
+        #self.compute_velocity()
     
     
     def apply_gravity(self):
@@ -135,14 +152,3 @@ class SPH:
             # use previous position to compute next velocity
             particle.velocity = (particle.position - particle.prev_position) / self.delta_t    
             
-            
-    def run(self):
-        for t in range(self.end_time/self.delta_t):
-            self.apply_gravity()
-            self.apply_viscosity()
-            self.advance_to_predicted_position()
-            self.adjust_springs()
-            self.apply_spring_displacements()
-            self.double_density_relaxation()
-            self.resolve_collisions()
-            self.compute_velocity()
